@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Imágenes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .preview {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 2px solid white;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .preview img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        select {
+            margin: 10px;
+            padding: 8px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        select:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generador de Imágenes</h1>
+    <div class="container">
+        <div class="preview" id="preview">
+            <img id="background" src="Background/1.png" alt="Fondo">
+            <img id="body" src="Body/1.png" alt="Cuerpo">
+            <img id="eyes" src="Eyes/1.png" alt="Ojos">
+            <img id="head" src="Head/1.png" alt="Cabeza">
+            <img id="mouth" src="Mouth/1.png" alt="Boca">
+        </div>
+        <label>Fondo:</label>
+        <select id="backgroundSelect"></select>
+        <label>Cuerpo:</label>
+        <select id="bodySelect"></select>
+        <label>Ojos:</label>
+        <select id="eyesSelect"></select>
+        <label>Cabeza:</label>
+        <select id="headSelect"></select>
+        <label>Boca:</label>
+        <select id="mouthSelect"></select>
+    </div>
+    <script>
+        const folders = ['Background', 'Body', 'Eyes', 'Head', 'Mouth'];
+        
+        folders.forEach(folder => {
+            const select = document.getElementById(`${folder.toLowerCase()}Select`);
+            
+            // Agregar opción para ocultar imagen
+            const option0 = document.createElement('option');
+            option0.value = "";
+            option0.textContent = "0 (Ocultar)";
+            select.appendChild(option0);
+            
+            // Agregar opciones 1.png hasta 6.png
+            for (let i = 1; i <= 6; i++) {
+                const option = document.createElement('option');
+                option.value = `${folder}/${i}.png`;
+                option.textContent = `${i}.png`;
+                if (i === 1) option.selected = true;
+                select.appendChild(option);
+            }
+            
+            select.addEventListener('change', () => {
+                document.getElementById(folder.toLowerCase()).src = select.value;
+            });
+        });
+    </script>
+</body>
+</html>
